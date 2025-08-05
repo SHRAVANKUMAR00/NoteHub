@@ -1,14 +1,11 @@
 // backend/config/db.js
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
-const connectDB = async () => {
+export const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    await mongoose.connect(process.env.MONGO_URI); // Keep MONGO_URI for consistency with your .env
+    console.log("Database Connected");
   } catch (error) {
-    console.error(`Error: ${error.message}`);
-    process.exit(1);
+    console.log(error);
   }
 };
-
-module.exports = connectDB;

@@ -1,10 +1,10 @@
 // backend/routes/userRoutes.js
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const User = require('../models/userModel');
-const bcrypt = require('bcryptjs');
-const generateToken = require('../utils/generateToken');
-const asyncHandler = require('express-async-handler');
+import User from '../models/userModel.js'; // Note the .js extension
+import bcrypt from 'bcryptjs';
+import generateToken from '../utils/generateToken.js'; // Note the .js extension
+import asyncHandler from 'express-async-handler';
 
 // @desc    Register a new admin user (for one-time use)
 // @route   POST /api/users/register
@@ -62,4 +62,4 @@ router.post('/login', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router; // Change module.exports to export default

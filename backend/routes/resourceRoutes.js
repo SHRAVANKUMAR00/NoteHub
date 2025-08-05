@@ -1,9 +1,9 @@
 // backend/routes/resourceRoutes.js
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const multer = require('multer');
-const Resource = require('../models/resourceModel');
-const protect = require('../middleware/authMiddleware'); // We will create this next
+import multer from 'multer';
+import Resource from '../models/resourceModel.js'; // Note the .js extension
+import protect from '../middleware/authMiddleware.js'; // Note the .js extension
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
@@ -46,4 +46,4 @@ router.get('/', async (req, res) => {
   res.status(200).json(resources);
 });
 
-module.exports = router;
+export default router; // Change module.exports to export default

@@ -1,7 +1,7 @@
 // backend/middleware/authMiddleware.js
-const jwt = require('jsonwebtoken');
-const asyncHandler = require('express-async-handler');
-const User = require('../models/userModel');
+import jwt from 'jsonwebtoken';
+import asyncHandler from 'express-async-handler';
+import User from '../models/userModel.js'; // Note the .js extension
 
 const protect = asyncHandler(async (req, res, next) => {
   let token;
@@ -11,15 +11,9 @@ const protect = asyncHandler(async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer')
   ) {
     try {
-      // Get token from header
       token = req.headers.authorization.split(' ')[1];
-
-      // Verify token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-      // Get user from the token and attach to the request object
       req.user = await User.findById(decoded.id).select('-password');
-
       next();
     } catch (error) {
       console.error(error);
@@ -34,4 +28,4 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
-module.exports = protect;
+export default protect; // Change module.exports to export default

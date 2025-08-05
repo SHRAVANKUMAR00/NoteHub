@@ -1,6 +1,6 @@
 // backend/models/userModel.js
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 
 const userSchema = mongoose.Schema(
   {
@@ -15,25 +15,21 @@ const userSchema = mongoose.Schema(
     },
   },
   {
-    timestamps: true, // This adds 'createdAt' and 'updatedAt' fields
+    timestamps: true,
   }
 );
 
-// This middleware will run before saving a user to the database
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
     next();
   }
-
-  // Hash the password with a salt
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-// Method to compare entered password with the hashed password
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
 const User = mongoose.model('User', userSchema);
-module.exports = User;
+export default User; // Change module.exports to export default
