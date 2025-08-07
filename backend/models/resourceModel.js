@@ -15,9 +15,9 @@ const resourceSchema = mongoose.Schema(
       type: String,
       required: [true, 'Please add a subject'],
     },
-    course: {
+    semester: {
       type: String,
-      required: [true, 'Please add a course'],
+      required: [true, 'Please add a semester'],
     },
     resourceType: {
       type: String,
@@ -27,6 +27,10 @@ const resourceSchema = mongoose.Schema(
     fileUrl: {
       type: String,
       required: [true, 'Please provide the file URL'],
+    },
+    frontPageImage: {
+      type: String,
+      required: false,
     },
     uploadedBy: {
       type: mongoose.Schema.Types.ObjectId,
@@ -40,4 +44,4 @@ const resourceSchema = mongoose.Schema(
 );
 
 const Resource = mongoose.model('Resource', resourceSchema);
-export default Resource; // Change module.exports to export default
+export default Resource;
